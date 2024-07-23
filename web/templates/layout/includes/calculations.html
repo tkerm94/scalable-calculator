@@ -1,0 +1,61 @@
+{{ define "calculations" }}
+<ul class="overflow-auto list-group list-group-flush border rounded" style="height: 79vh;">
+	{{ range .Calculations }}
+	{{ if eq .Status "failed" }}
+	<li class="bg-danger-subtle text-danger-emphasis list-group-item list-group-item-action py-3 lh-sm">
+		<div class="row">
+			<div class="col-md-1 fs-5 me-1">
+				<svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" fill="currentColor" class="bi bi-exclamation-circle" viewBox="0 0 16 16">
+					<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+					<path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0M7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0z"/>
+				</svg>
+			</div>
+			<div class="col-md">
+				<div class="d-flex w-100 align-items-center justify-content-between">
+					<strong>{{ .Expression }}</strong>
+					<small>id: {{ .ID }}</small>
+				</div>
+				<div class="small">Expression parsing error</div>
+			</div>
+		</div>
+	</li>
+	{{ else if eq .Status "ok" }}
+	<li class="bg-success-subtle text-success-emphasis list-group-item list-group-item-action py-3 lh-sm">
+		<div class="row">
+			<div class="col-md-1 fs-5 me-1">
+				<svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+					<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+					<path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05"/>
+				</svg>
+			</div>
+			<div class="col-md">
+				<div class="d-flex w-100 align-items-center justify-content-between">
+					<strong>{{ .Expression }}={{ .Answer }}</strong>
+					<small>id: {{ .ID }}</small>
+				</div>
+				<div class="small">Expression calculated</div>
+			</div>
+		</div>
+	</li>
+	{{ else }}
+	<li class="bg-primary-subtle text-primary-emphasis list-group-item list-group-item-action py-3 lh-sm">
+		<div class="row">
+			<div class="col-md-1 fs-5 me-1">
+				<svg xmlns="http://www.w3.org/2000/svg" width="1.8em" height="1.8em" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+					<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+					<path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8"/>
+				</svg>
+			</div>
+			<div class="col-md">
+				<div class="d-flex w-100 align-items-center justify-content-between">
+					<strong>{{ .Expression }}=?</strong>
+					<small>id: {{ .ID }}</small>
+				</div>
+				<div class="small">Expression will be calculated soon</div>
+			</div>
+		</div>
+	</li>
+	{{ end }}
+	{{ end }}
+</ul>
+{{ end }}

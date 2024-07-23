@@ -1,0 +1,41 @@
+{{ template "base" . }}
+{{ define "content" }}
+<div class="row flex-column min-vh-100 text-center">
+	<div class="col-6 mx-auto my-auto">
+		<main class="form-signin w-100 m-auto">
+			<form method="post">
+				<h2 class="mb-3">Please sign in</h2>
+				<div class="form-floating">
+					<input
+						type="text"
+						name="login"
+						class="form-control mb-2 d-flex"
+						id="floatingInput"
+						placeholder="Login"
+						autocomplete="username"
+						value="{{ .Login }}"
+						required>
+					<label for="floatingInput">Login</label>
+				</div>
+				<div class="form-floating">
+					<input
+						type="password"
+						name="password"
+						class="form-control mb-2 d-flex"
+						id="floatingPassword"
+						placeholder="Password"
+						autocomplete="off"
+						required>
+					<label for="floatingPassword">Password</label>
+				</div>
+				<button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+				{{ if .Error }}
+				<p class="alert alert-danger mt-5 mb-3" role="alert">
+					{{ .Error }}
+				</p>
+				{{ end }}
+			</form>
+		</main>
+	</div>
+</div>
+{{ end }}

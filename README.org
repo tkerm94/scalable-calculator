@@ -1,0 +1,22 @@
+* scalable-calculator
+This project is a server and agents that can process and solve expressions, breaking them into subexpressions and solving as many operations as possible in parallel to achieve greater efficiency (the ToR states that we should imagine that all operations take a very long time to execute). The development utilised technologies such as =docker=, =postgres=, =rabbitmq= and the frontend was written in pure *html* and *bootstrap css* to ensure very fast load times. Below are the steps to install and run all the necessary resources to get the project up and running, as well as a part explaining how everything works and interacts with each other.
+
+** Installation and launching
+First, clone the project and navigate to the project folder:
+#+begin_src 
+git clone https://github.com/tkerm94/scalable-calculator && cd scalable-calculator
+#+end_src
+Then you need to start all the necessary containers and the project itself using =docker compose=:
+#+begin_src
+docker compose up -d
+#+end_src
+You can stop and delete all running containers with a single command:
+#+begin_src
+docker compose down
+#+end_src
+
+** Project structure
+The project consists of 2 executable files in subfolders of the =cmd= folder and the =internal= folder containing all the application code and =web= containing all the html templates and images that are used in the frontend part of the project. The =/calculator=, =/settings=, =/profile=, =/login= and =/register= endpoints are implemented in Orchestrator. In =/calculator= the user can enter an expression in the input field and when the *Submit* button is pressed it is sent to the queue and added to the database with the status ‘in progress’, also on this page you can see the rules for writing the expression and a scrolling list of all expressions that are taken from the database. If an error occurs while loading values from the database, the user receives a 500 error message. The =/profile= section displays information about the user, he can change his password by entering the old and twice the new password in the input fields, following the rules at the bottom of the page, and exit his profile. In =/settings= the user can change the timing of the operations that are loaded into the input fields via the database, invalid values cannot be sent as this is controlled in the html document and in the handler of this endpoint. When the *Save* button is clicked, the data from the page is sent via *PRG (Post Redirect Get)* requests to the server and entered into the database. In addition, the =/settings= page displays all agents with the number of parallel computations, status and ID. Agents connect to the =rabbitmq= queue and wait for expressions to appear. When an expression appears, the agent parses it using regex patterns and uses the specified number of goroutines to compute all simple expressions in parallel and output the answer and error, if any. The answer is then entered into the database by expression id, all parameters are modified, and only then is the message removed from the queue to avoid losing expressions when the agent fails. All endpoints except =/login= and =/register= check the request for the =jwt= token, and if it is not present, sends the user to the login page. In addition, all expressions and runtimes are user-dependent, and everyone will only see expressions that they themselves have submitted, and they will be executed based on the settings of the user who submitted the request.
+
+*** Scheme
+[[assets/project_scheme.png]]

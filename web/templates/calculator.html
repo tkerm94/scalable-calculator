@@ -1,0 +1,27 @@
+{{ template "base" . }}
+{{ define "content" }}
+<div class="row mt-4 g-4">
+	<div class="d-flex flex-column col">
+		<form method="post">
+			<h2 class="mb-2">Calculate expression</h2>
+			<div class="mb-2" style="display: flex;">
+				<input
+					type="text"
+					name="text"
+					style="margin-right: 10px;"
+					autocomplete="off"
+					required class="form-control"
+					placeholder="Expression">
+				<button type="submit" class="btn btn-primary">
+					Submit
+				</button>
+			</div>
+		</form>
+		{{ template "rules" . }}
+	</div>
+	<div class="d-flex flex-column col">
+		<h2 class="mb-2">Expressions</h2>
+		{{ template "calculations" . }}
+	</div>
+</div>
+{{ end }}

@@ -1,0 +1,68 @@
+{{ template "base" . }}
+{{ define "content" }}
+<div class="row mt-4 g-4">
+	<div class="d-flex flex-column col">
+		<form method="post">
+			<h2 class="mb-2">Change settings</h2>
+			<div class="mb-2" style="display: flex;">
+				<input
+					type="text"
+					name="add"
+					pattern="^[1-9]{1}[0-9]*$"
+					style="margin-right: 10px;"
+					autocomplete="off"
+					required class="form-control"
+					placeholder="Value"
+					value="{{ .add }}">
+				<span class="badge bg-warning-subtle text-warning-emphasis rounded d-flex align-items-center" style="font-family: monospace;">Execution time of "+" operation</span>
+			</div>
+			<div class="mb-2" style="display: flex;">
+				<input
+					type="text"
+					name="sub"
+					pattern="^[1-9]{1}[0-9]*$"
+					style="margin-right: 10px;"
+					autocomplete="off"
+					required class="form-control"
+					placeholder="Value"
+					value="{{ .sub }}">
+				<span class="badge bg-warning-subtle text-warning-emphasis rounded d-flex align-items-center" style="font-family: monospace;">Execution time of "-" operation</span>
+			</div>
+			<div class="mb-2" style="display: flex;">
+				<input
+					type="text"
+					name="mult"
+					pattern="^[1-9]{1}[0-9]*$"
+					style="margin-right: 10px;"
+					autocomplete="off"
+					required class="form-control"
+					placeholder="Value"
+					value="{{ .mult }}">
+				<span class="badge bg-warning-subtle text-warning-emphasis rounded d-flex align-items-center" style="font-family: monospace;">Execution time of "*" operation</span>
+			</div>
+			<div class="mb-2" style="display: flex;">
+				<input
+					type="text"
+					name="div"
+					pattern="^[1-9]{1}[0-9]*$"
+					style="margin-right: 10px;"
+					autocomplete="off"
+					required class="form-control"
+					placeholder="Value"
+					value="{{ .div }}">
+				<span class="badge bg-warning-subtle text-warning-emphasis rounded d-flex align-items-center" style="font-family: monospace;">Execution time of "/" operation</span>
+			</div>
+			<div class="mb-2 row mx-0" style="display: flex;">
+				<button type="submit" class="btn btn-primary">
+					Save
+				</button>
+			</div>
+		</form>
+		{{ template "rules" . }}
+	</div>
+	<div class="d-flex flex-column col">
+		<h2 class="mb-2">Agents</h2>
+		{{ template "agents" . }}
+	</div>
+</div>
+{{ end }}
