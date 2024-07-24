@@ -3,15 +3,15 @@ This project is a server and agents that can process and solve expressions, brea
 
 ** Installation and launching
 First, clone the project and navigate to the project folder:
-#+begin_src 
+#+begin_src zsh
 git clone https://github.com/tkerm94/scalable-calculator && cd scalable-calculator
 #+end_src
 Then you need to start all the necessary containers and the project itself using =docker compose=:
-#+begin_src
+#+begin_src zsh
 docker compose up -d
 #+end_src
 You can stop and delete all running containers with a single command:
-#+begin_src
+#+begin_src zsh
 docker compose down
 #+end_src
 
